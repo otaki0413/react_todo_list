@@ -1,4 +1,11 @@
+import { useState } from 'react';
+
+import { Todo } from './types/todo';
+import { TodoForm } from './components/TodoForm';
+import { Button } from './components/Button';
+
 function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-6">
       <div className="mx-auto my-8 max-w-xl space-y-8 rounded-2xl bg-white p-5">
@@ -24,21 +31,9 @@ function App() {
           </div>
         </div>
 
-        {/* フォームエリア */}
-        <div className="rounded-lg">
-          <form className="flex gap-4">
-            <input
-              type="text"
-              placeholder="新しいTodoを入力..."
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="cursor-pointer rounded-lg border-none bg-blue-500 px-4 py-2 font-bold text-white transition-colors hover:bg-blue-600"
-            >
-              追加
-            </button>
-          </form>
+        {/* Todoフォームエリア */}
+        <div>
+          <TodoForm setTodos={setTodos} />
         </div>
 
         {/* Todoリストエリア */}
