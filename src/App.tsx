@@ -3,9 +3,38 @@ import { useState } from 'react';
 import { Todo } from './types/todo';
 import { TodoForm } from './components/TodoForm';
 import { TodoList } from './components/TodoList';
+import { nanoid } from 'nanoid';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  // Todo追加処理
+  const addTodo = (text: string) => {
+    setTodos((prevTodos) => [
+      ...prevTodos,
+      { id: nanoid(), text, isCompleted: false },
+    ]);
+  };
+
+  // Todoステータス切替処理
+  const toggleTodo = (todoId: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === todoId) {
+          return { ...todo, isCompleted: !todo.isCompleted };
+        }
+        return todo;
+      });
+    });
+  };
+
+  // Todo削除処理
+  const deleteTodo = (todoId: string) => {
+    const isOk = confirm('本当によろしいですか？');
+    if (isOk) {
+      setTodos((prevTodos) => prevTodos.filter((pt) => pt.id !== todoId));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-6">
       <div className="mx-auto my-8 max-w-xl space-y-8 rounded-2xl bg-white p-5">
@@ -33,12 +62,16 @@ function App() {
 
         {/* Todoフォームエリア */}
         <div>
-          <TodoForm setTodos={setTodos} />
+          <TodoForm addTodo={addTodo} />
         </div>
 
         {/* Todoリストエリア */}
         <div>
-          <TodoList todos={todos} setTodos={setTodos} />
+          <TodoList
+            todos={todos}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+          />
         </div>
       </div>
     </div>

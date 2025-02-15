@@ -1,13 +1,11 @@
 import { FC } from 'react';
-import { nanoid } from 'nanoid';
 import { Button } from './Button';
-import { Todo } from '../types/todo';
 
 type Props = {
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  addTodo: (text: string) => void;
 };
 
-export const TodoForm: FC<Props> = ({ setTodos }) => {
+export const TodoForm: FC<Props> = ({ addTodo }) => {
   // フォーム送信時の処理
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,15 +13,9 @@ export const TodoForm: FC<Props> = ({ setTodos }) => {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const todoText = formData.get('todo') as string;
-    if (!todoText.trim()) {
-      alert('入力値が空です');
-      return;
-    }
+    if (!todoText.trim()) return;
     // Todo追加
-    setTodos((prevTodos) => [
-      ...prevTodos,
-      { id: nanoid(), text: todoText, isCompleted: false },
-    ]);
+    addTodo(todoText);
     // フォームリセット
     form.reset();
   };
