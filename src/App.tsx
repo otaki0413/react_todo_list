@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Todo } from './types/todo';
 import { TodoForm } from './components/TodoForm';
-import { Button } from './components/Button';
+import { TodoList } from './components/TodoList';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -38,23 +38,7 @@ function App() {
 
         {/* Todoリストエリア */}
         <div>
-          <ul className="list-none space-y-3">
-            <li className="flex items-center gap-x-4 border-b-1 border-b-gray-300 py-4">
-              <input type="checkbox" />
-              <span className="line-clamp-2 flex-1">aaa</span>
-              <div className="flex gap-x-2">
-                <button className="cursor-pointer rounded-lg border-none bg-gray-500 px-4 py-2 font-bold text-white">
-                  編集
-                </button>
-                <button className="cursor-pointer rounded-lg border-none bg-green-500 px-4 py-2 font-bold text-white">
-                  保存
-                </button>
-                <button className="cursor-pointer rounded-lg border-none bg-orange-500 px-4 py-2 font-bold text-white">
-                  削除
-                </button>
-              </div>
-            </li>
-          </ul>
+          <TodoList todos={todos} setTodos={setTodos} />
         </div>
       </div>
     </div>
