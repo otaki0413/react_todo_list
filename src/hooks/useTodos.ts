@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { Todo } from '../types/todo';
 
@@ -7,15 +7,15 @@ export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   // Todo追加処理
-  const addTodo = useCallback((text: string) => {
+  const addTodo = (text: string) => {
     setTodos((prevTodos) => [
       ...prevTodos,
       { id: nanoid(), text, isCompleted: false },
     ]);
-  }, []);
+  };
 
   // Todoステータス切替処理
-  const toggleTodo = useCallback((todoId: string) => {
+  const toggleTodo = (todoId: string) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
         if (todo.id === todoId) {
@@ -24,10 +24,10 @@ export const useTodos = () => {
         return todo;
       });
     });
-  }, []);
+  };
 
   // Todo更新処理
-  const updateTodo = useCallback((todoId: string, updatedText: string) => {
+  const updateTodo = (todoId: string, updatedText: string) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
         if (todo.id === todoId) {
@@ -36,15 +36,15 @@ export const useTodos = () => {
         return todo;
       });
     });
-  }, []);
+  };
 
   // Todo削除処理
-  const deleteTodo = useCallback((todoId: string) => {
+  const deleteTodo = (todoId: string) => {
     const isOk = confirm('本当によろしいですか？');
     if (isOk) {
       setTodos((prevTodos) => prevTodos.filter((pt) => pt.id !== todoId));
     }
-  }, []);
+  };
 
   return {
     todos,
