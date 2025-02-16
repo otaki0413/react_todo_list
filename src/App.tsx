@@ -1,52 +1,10 @@
-import { useState } from 'react';
-import { nanoid } from 'nanoid';
-import { Todo } from './types/todo';
+import { useTodos } from './hooks/useTodos';
 import { TodoStatus } from './components/todo/TodoStatus';
 import { TodoForm } from './components/todo/TodoForm';
 import { TodoList } from './components/todo/TodoList';
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  // Todo追加処理
-  const addTodo = (text: string) => {
-    setTodos((prevTodos) => [
-      ...prevTodos,
-      { id: nanoid(), text, isCompleted: false },
-    ]);
-  };
-
-  // Todoステータス切替処理
-  const toggleTodo = (todoId: string) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((todo) => {
-        if (todo.id === todoId) {
-          return { ...todo, isCompleted: !todo.isCompleted };
-        }
-        return todo;
-      });
-    });
-  };
-
-  // Todo更新処理
-  const updateTodo = (todoId: string, updatedText: string) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((todo) => {
-        if (todo.id === todoId) {
-          return { ...todo, text: updatedText };
-        }
-        return todo;
-      });
-    });
-  };
-
-  // Todo削除処理
-  const deleteTodo = (todoId: string) => {
-    const isOk = confirm('本当によろしいですか？');
-    if (isOk) {
-      setTodos((prevTodos) => prevTodos.filter((pt) => pt.id !== todoId));
-    }
-  };
+  const { todos, addTodo, toggleTodo, updateTodo, deleteTodo } = useTodos();
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-6">
