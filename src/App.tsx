@@ -1,12 +1,13 @@
 import { useState } from 'react';
-
+import { nanoid } from 'nanoid';
 import { Todo } from './types/todo';
 import { TodoForm } from './components/TodoForm';
-import { TodoList } from './components/TodoList';
-import { nanoid } from 'nanoid';
+import { TodoForm } from './components/todo/TodoForm';
+import { TodoList } from './components/todo/TodoList';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+
   // Todo追加処理
   const addTodo = (text: string) => {
     setTodos((prevTodos) => [
@@ -21,6 +22,18 @@ function App() {
       return prevTodos.map((todo) => {
         if (todo.id === todoId) {
           return { ...todo, isCompleted: !todo.isCompleted };
+        }
+        return todo;
+      });
+    });
+  };
+
+  // Todo更新処理
+  const updateTodo = (todoId: string, updatedText: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === todoId) {
+          return { ...todo, text: updatedText };
         }
         return todo;
       });
@@ -70,6 +83,7 @@ function App() {
           <TodoList
             todos={todos}
             toggleTodo={toggleTodo}
+            updateTodo={updateTodo}
             deleteTodo={deleteTodo}
           />
         </div>
