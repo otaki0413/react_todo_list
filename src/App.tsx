@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { Todo } from './types/todo';
-import { TodoForm } from './components/TodoForm';
+import { TodoStatus } from './components/todo/TodoStatus';
 import { TodoForm } from './components/todo/TodoForm';
 import { TodoList } from './components/todo/TodoList';
 
@@ -57,20 +57,8 @@ function App() {
         </h1>
 
         {/* Todoステータスエリア */}
-        <div className="grid grid-cols-3 gap-2">
-          {/* ステータスボックス */}
-          <div className="rounded-lg border border-gray-300 p-4 text-center">
-            <div className="mb-2">すべてのタスク</div>
-            <div className="text-2xl font-bold text-blue-600">1</div>
-          </div>
-          <div className="rounded-lg border border-gray-300 p-4 text-center">
-            <div className="mb-2">完了</div>
-            <div className="text-2xl font-bold text-blue-600">1</div>
-          </div>
-          <div className="rounded-lg border border-gray-300 p-4 text-center">
-            <div className="mb-2">未完了</div>
-            <div className="text-2xl font-bold text-blue-600">1</div>
-          </div>
+        <div>
+          <TodoStatus todos={todos} />
         </div>
 
         {/* Todoフォームエリア */}
