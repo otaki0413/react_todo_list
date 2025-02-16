@@ -15,24 +15,18 @@ function App() {
       </h1>
 
       {/* Todoステータスエリア */}
-      <div>
-        <TodoStatus todos={todos} />
-      </div>
+      <TodoStatus todos={todos} />
 
       {/* Todoフォームエリア */}
-      <div>
-        <TodoForm addTodo={addTodo} />
-      </div>
+      <TodoForm addTodo={addTodo} />
 
       {/* Todoリストエリア */}
-      <div>
-        <TodoList
-          todos={todos}
-          toggleTodo={toggleTodo}
-          updateTodo={updateTodo}
-          deleteTodo={deleteTodo}
-        />
-      </div>
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
+      />
     </Container>
   );
 }
