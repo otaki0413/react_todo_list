@@ -20,12 +20,15 @@ export const TodoStatus: FC<TodoStatusProps> = ({ todos }) => {
   );
 };
 
-type Props = {
+type TodoStatusBoxProps = {
   statusText: string;
   count: number;
 };
 
-export const TodoStatusBox: FC<Props> = ({ statusText, count }) => {
+export const TodoStatusBox: FC<TodoStatusBoxProps> = ({
+  statusText,
+  count,
+}) => {
   return (
     <div className="rounded-lg border border-gray-300 p-4 text-center">
       <div className="mb-2">{statusText}</div>

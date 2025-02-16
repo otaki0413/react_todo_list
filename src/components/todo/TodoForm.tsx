@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Button } from '../Button';
 
-type Props = {
+type TodoFormProps = {
   addTodo: (text: string) => void;
 };
 
-export const TodoForm: FC<Props> = ({ addTodo }) => {
+export const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
   // フォーム送信時の処理
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

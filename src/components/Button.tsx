@@ -3,14 +3,14 @@ import { FC, ReactNode } from 'react';
 type ButtonIntent = 'add' | 'edit' | 'save' | 'delete';
 type ButtonType = 'button' | 'submit';
 
-type Props = {
+type ButtonProps = {
   children: ReactNode;
   intent: ButtonIntent;
   type: ButtonType;
   onClick?: () => void;
 };
 
-export const Button: FC<Props> = ({
+export const Button: FC<ButtonProps> = ({
   children,
   intent,
   type = 'button',
