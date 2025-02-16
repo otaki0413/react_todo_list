@@ -18,25 +18,7 @@ export const TodoListItem: FC<TodoListItemProps> = ({
   // 編集モードかどうかを管理するstate
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-  return (
-    <li className="flex items-center gap-x-4 border-b-1 border-b-gray-300 p-4">
-      {isEditMode ? (
-        <TodoEditMode
-          todo={todo}
-          updateTodo={updateTodo}
-          setIsEdit={setIsEditMode}
-        />
-      ) : (
-        <TodoViewMode
-          todo={todo}
-          toggleTodo={toggleTodo}
-          setIsEdit={setIsEditMode}
-          deleteTodo={deleteTodo}
-        />
-      )}
-    </li>
-  );
-};
+      <li>
 
 // Todo表示モード用のコンポーネント
 type TodoViewModeProps = {
@@ -52,7 +34,7 @@ const TodoViewMode: FC<TodoViewModeProps> = ({
   setIsEdit,
   deleteTodo,
 }) => (
-  <>
+  <div className="flex items-center gap-x-4 border-b-1 border-b-gray-300 p-4">
     <input
       type="checkbox"
       checked={todo.isCompleted}
@@ -71,7 +53,7 @@ const TodoViewMode: FC<TodoViewModeProps> = ({
         削除
       </Button>
     </div>
-  </>
+  </div>
 );
 
 // Todo編集モード用のコンポーネント
@@ -86,13 +68,19 @@ const TodoEditMode: FC<TodoEditModeProps> = ({
   updateTodo,
   setIsEdit,
 }) => {
+  const [error, setError] = useState<string>('');
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError('');
     // フォームデータからTodo取得
     const editForm = e.currentTarget;
     const formData = new FormData(editForm);
     const editTodoText = formData.get('edit-todo') as string;
-    if (!editTodoText.trim()) return;
+    if (!editTodoText.trim()) {
+      setError('フォームが未入力です。');
+      return;
+    }
     // Todo更新
     updateTodo(todo.id, editTodoText);
     // フォームリセット
@@ -102,10 +90,10 @@ const TodoEditMode: FC<TodoEditModeProps> = ({
   };
 
   return (
-    <>
+    <div className="border-b-1 border-b-gray-300 p-4">
       <form
         onSubmit={handleSubmit}
-        className="flex w-full justify-between gap-4"
+        className="flex w-full items-center justify-between gap-x-4"
       >
         <input
           type="text"
@@ -117,6 +105,8 @@ const TodoEditMode: FC<TodoEditModeProps> = ({
           保存
         </Button>
       </form>
-    </>
+      {/* エラーメッセージ */}
+      {error && <p className="text-center text-red-500">{error}</p>}
+    </div>
   );
 };
