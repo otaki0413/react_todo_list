@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, memo } from 'react';
 import { Todo } from '../../types/todo';
 import { Button } from '../Button';
 
@@ -9,16 +9,31 @@ type TodoListItemProps = {
   deleteTodo: (id: string) => void;
 };
 
-export const TodoListItem: FC<TodoListItemProps> = ({
-  todo,
-  toggleTodo,
-  updateTodo,
-  deleteTodo,
-}) => {
-  // 編集モードかどうかを管理するstate
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+export const TodoListItem: FC<TodoListItemProps> = memo(
+  ({ todo, toggleTodo, updateTodo, deleteTodo }) => {
+    // 編集モードかどうかを管理するstate
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
+    return (
       <li>
+        {isEditMode ? (
+          <TodoEditMode
+            todo={todo}
+            updateTodo={updateTodo}
+            setIsEdit={setIsEditMode}
+          />
+        ) : (
+          <TodoViewMode
+            todo={todo}
+            toggleTodo={toggleTodo}
+            setIsEdit={setIsEditMode}
+            deleteTodo={deleteTodo}
+          />
+        )}
+      </li>
+    );
+  },
+);
 
 // Todo表示モード用のコンポーネント
 type TodoViewModeProps = {
