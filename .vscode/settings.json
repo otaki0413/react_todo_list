@@ -1,0 +1,10 @@
+{
+  // ファイル保存時にESLintの自動修正を実行
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  // デフォルトのフォーマッターをPrettierに設定
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // ファイル保存時に自動フォーマットを実行
+  "editor.formatOnSave": true,
+  // 文字列内でも補完を有効化（Tailwind CSSのクラス補完に必要）
+  "editor.quickSuggestions": { "strings": true }
+}
